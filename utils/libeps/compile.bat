@@ -1,0 +1,1 @@
+gcc -O3 -shared -Wl,--add-stdcall-alias -Wno-multichar -Wl,--strip-all -Wl,--insert-timestamp -Wl,--gc-sections -Wl,--discard-all -static-libgcc -D_WIN32 *.c -o libeps.dll
