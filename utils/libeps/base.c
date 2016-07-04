@@ -30,7 +30,7 @@ void convert_savefile_to_data (SaveFile * savefile, unsigned char * data) {
 }
 
 int validate_offset_and_width (unsigned offset, int width, unsigned limit) {
-  if ((width < 0) || (width > 4)) return EPSS_INVALID_ARGUMENT;
+  if ((width < 1) || (width > 4)) return EPSS_INVALID_ARGUMENT;
   if ((offset + width) > limit) return EPSS_INDEX_OUT_OF_RANGE;
   return EPSS_OK;
 }

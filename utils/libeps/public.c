@@ -52,7 +52,11 @@ interface int epsf_copy_save_slot (void * save, int from, int to) {
 interface int epsf_erase_save_slot (void * save, int slot) {
   if (!save) return EPSS_NULL_POINTER;
   if ((slot < 1) || (slot > 4)) return EPSS_INDEX_OUT_OF_RANGE;
-  return erase_save_slot(save, slot);
+  SaveFile * sf = save;
+  int rv = erase_save_slot(sf, slot);
+  if (rv) return rv;
+  if (sf -> current_subslot == slot) sf -> current_subslot = 0;
+  return EPSS_OK;
 }
 
 interface int epsf_is_save_slot_empty (void * save, int slot) {

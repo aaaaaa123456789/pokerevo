@@ -6,23 +6,24 @@ except NameError:
     # we're not on Windows, let's try the Linux version
     _libeps = CDLL('./libeps.so')
 
-EPSS_OK                                       =          0
-EPSS_OUT_OF_MEMORY                            = 0x80000001
-EPSS_INVALID_ARGUMENT                         = 0x80000101
-EPSS_INDEX_OUT_OF_RANGE                       = 0x80000102
-EPSS_NOT_IMPLEMENTED                          = 0x80000103
-EPSS_NULL_POINTER                             = 0x80000104
-EPSS_STRING_TOO_LONG                          = 0x80000105
-EPSS_INVALID_CHARACTERS                       = 0x80000106
-EPSS_INVALID_CHECKSUM                         = 0x80000201
-EPSS_INVALID_HEADER_CHECKSUM                  = 0x80000202
-EPSS_FILE_NOT_FOUND                           = 0x80000301
-EPSS_WRONG_FILE_SIZE                          = 0x80000302
-EPSS_READ_ERROR                               = 0x80000303
-EPSS_ERROR_OPENING_FILE                       = 0x80000304
-EPSS_WRITE_ERROR                              = 0x80000305
-EPSS_SLOT_IS_EMPTY                            = 0x80000401
-EPSS_NO_SLOT_SELECTED                         = 0x80000402
+# weird format for the error codes since they wouldn't become negative otherwise
+EPSS_OK                                       =                   0
+EPSS_OUT_OF_MEMORY                            = 0x0001 - 0x80000000
+EPSS_INVALID_ARGUMENT                         = 0x0101 - 0x80000000
+EPSS_INDEX_OUT_OF_RANGE                       = 0x0102 - 0x80000000
+EPSS_NOT_IMPLEMENTED                          = 0x0103 - 0x80000000
+EPSS_NULL_POINTER                             = 0x0104 - 0x80000000
+EPSS_STRING_TOO_LONG                          = 0x0105 - 0x80000000
+EPSS_INVALID_CHARACTERS                       = 0x0106 - 0x80000000
+EPSS_INVALID_CHECKSUM                         = 0x0201 - 0x80000000
+EPSS_INVALID_HEADER_CHECKSUM                  = 0x0202 - 0x80000000
+EPSS_FILE_NOT_FOUND                           = 0x0301 - 0x80000000
+EPSS_WRONG_FILE_SIZE                          = 0x0302 - 0x80000000
+EPSS_READ_ERROR                               = 0x0303 - 0x80000000
+EPSS_ERROR_OPENING_FILE                       = 0x0304 - 0x80000000
+EPSS_WRITE_ERROR                              = 0x0305 - 0x80000000
+EPSS_SLOT_IS_EMPTY                            = 0x0401 - 0x80000000
+EPSS_NO_SLOT_SELECTED                         = 0x0402 - 0x80000000
 
 EPSM_ACTIVE_SAVEFILE        = 0
 EPSM_BACKUP_SAVEFILE        = 1
