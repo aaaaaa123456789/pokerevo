@@ -802,7 +802,7 @@ an IV (which is 5-bit) will silently write 14 (binary 01110) instead.)
 |`EPSK_TWO_BYTES`                 | 0 - 134       |        16 | Same as above, but access 2-byte values. All multi-byte values are big-endian.|
 |`EPSK_THREE_BYTES`               | 0 - 133       |        24 | Same as above, for 3-byte values.|
 |`EPSK_FOUR_BYTES`                | 0 - 132       |        32 | Same as above, for 4-byte values.|
-|`EPSK_PERSONALITY_VALUE`         | not used (0)  |        32 | |
+|`EPSK_PERSONALITY_VALUE`         | not used (0)  |        32 | The Pokémon's nature is determined by this value, modulo 25.|
 |`EPSK_CHECKSUM`                  | not used (0)  |        16 | |
 |`EPSK_SPECIES_NUMBER`            | not used (0)  |        16 | |
 |`EPSK_HELD_ITEM`                 | not used (0)  |        16 | |
