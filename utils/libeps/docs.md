@@ -7,6 +7,7 @@ interact with it.
 * [Function reference](#function-reference)
 * [Error codes](#error-codes)
 * [Pokemon values](#pokemon-values)
+* [Notes about the Python binding](#notes-about-the-python-binding)
 
 ***
 
@@ -898,3 +899,49 @@ the following ones:
 |     5 | `EPSN_SPECIAL_DEFENSE`  | `EPSN_FEEL`        |
 
 ***
+
+## Notes about the Python binding
+
+The Python binding makes all of the above functions and constants available on Python. It does not define any Python
+classes or any new functions or methods. It is intentionally very similar to the C interface, and thus should be
+wrapped by a proper Python interface by the application. Since it behaves identically to the C interface, destructing
+objects explicitly is mandatory; they are not garbage collected.
+
+The exposed functions take the same arguments as the corresponding C functions. The `ctypes` types `c_void_p` and
+`c_char_p` take the place of C's `void *` and `char *` types. Note that several functions take pass-by-reference
+arguments through which they return values to the caller, which will therefore require `ctypes.byref()` to be called;
+also note that `byref` itself requires the variable that is passed to it to be initialized to a proper `ctypes` value.
+
+The `c_char_p` type will only accept bytes, not strings; therefore, strings must be converted to bytes using the
+`encode` method (and bytes back to strings using `decode`). The encoding is the usual encoding for C strings for the
+platform: that is typically `windows-1252` for Windows and `utf-8` for Linux. For ASCII-only strings (e.g., names in
+Pokémon data), either encoding is acceptable, since ASCII is a subset of both.
+
+The following sample program should illustrate the various quirks of using the Python binding:
+
+```python
+from ctypes import *
+from eps import *
+
+save = c_void_p(None)
+epsf_read_save_from_file(b'basesave', byref(save))
+epsf_select_save_slot(save, 1)
+for n in range(0, 30):
+    pokemon = c_void_p(None)
+    epsf_read_pokemon_from_save(save, 1, n + 1, byref(pokemon))
+    name = create_string_buffer(12)
+    species = c_uint(0)
+    epsf_get_pokemon_name(pokemon, 0, name)
+    epsf_get_pokemon_value(pokemon, EPSK_SPECIES_NUMBER, 0, byref(species))
+    # print its current species number and nickname
+    print('#%03u %s' % (species.value, name.value.decode('utf-8')))
+    # change its nickname to Test #xxx, and make it level 1
+    epsf_set_pokemon_name(pokemon, 0, ('Test #%03u' % species.value).encode('utf-8'))
+    epsf_set_pokemon_value(pokemon, EPSK_EXPERIENCE_POINTS, 0, 0)
+    # ...and make it a Chatot
+    epsf_set_pokemon_value(pokemon, EPSK_SPECIES_NUMBER, 0, 441) # 441 is Chatot's ID
+    epsf_write_pokemon_to_save(save, 1, n + 1, pokemon)
+    epsf_destroy_pokemon(pokemon)
+epsf_write_save_to_file(save, b'PbrSaveData')
+epsf_destroy_save(save)
+```
