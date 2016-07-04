@@ -3,6 +3,11 @@
 This page intends to document the use and behavior of libeps, describing this way how the user can use the library and
 interact with it.
 
+* [Overview](#overview)
+* [Function reference](#function-reference)
+* [Error codes](#error-codes)
+* [Pokemon values](#pokemon-values)
+
 ***
 
 ## Overview
@@ -36,6 +41,37 @@ is still true even if the Python binding for the library is used, as the objects
 
 Every function defined by the library is described here, along with its prototype, parameter description, return value and
 behavior. The errors that functions can return are also listed here.
+
+* [epsf_read_save_from_file](#epsf_read_save_from_file)
+* [epsf_destroy_save](#epsf_destroy_save)
+* [epsf_write_save_to_file](#epsf_write_save_to_file)
+* [epsf_current_operation_mode](#epsf_current_operation_mode)
+* [epsf_select_operation_mode](#epsf_select_operation_mode)
+* [epsf_current_save_slot](#epsf_current_save_slot)
+* [epsf_select_save_slot](#epsf_select_save_slot)
+* [epsf_copy_save_slot](#epsf_copy_save_slot)
+* [epsf_erase_save_slot](#epsf_erase_save_slot)
+* [epsf_is_save_slot_empty](#epsf_is_save_slot_empty)
+* [epsf_get_active_savefile](#epsf_get_active_savefile)
+* [epsf_swap_savefiles](#epsf_swap_savefiles)
+* [epsf_get_encryption_key](#epsf_get_encryption_key)
+* [epsf_set_encryption_key](#epsf_set_encryption_key)
+* [epsf_read_savefile_raw](#epsf_read_savefile_raw)
+* [epsf_write_savefile_raw](#epsf_write_savefile_raw)
+* [epsf_read_saveslot_raw](#epsf_read_saveslot_raw)
+* [epsf_write_saveslot_raw](#epsf_write_saveslot_raw)
+* [epsf_new_pokemon](#epsf_new_pokemon)
+* [epsf_destroy_pokemon](#epsf_destroy_pokemon)
+* [epsf_read_pokemon_from_file](#epsf_read_pokemon_from_file)
+* [epsf_write_pokemon_to_file](#epsf_write_pokemon_to_file)
+* [epsf_read_pokemon_from_save](#epsf_read_pokemon_from_save)
+* [epsf_write_pokemon_to_save](#epsf_write_pokemon_to_save)
+* [epsf_erase_pokemon_from_save](#epsf_erase_pokemon_from_save)
+* [epsf_get_pokemon_name](#epsf_get_pokemon_name)
+* [epsf_set_pokemon_name](#epsf_set_pokemon_name)
+* [epsf_get_pokemon_value](#epsf_get_pokemon_value)
+* [epsf_set_pokemon_value](#epsf_set_pokemon_value)
+* [epsf_fix_pokemon_checksum](#epsf_fix_pokemon_checksum)
 
 ***
 
