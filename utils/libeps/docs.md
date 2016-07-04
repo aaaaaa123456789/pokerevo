@@ -510,7 +510,7 @@ Creates a new, blank Pokémon object and stores it in a passed-by-reference argu
 Returns 0 (`EPSS_OK`) on success, or an error code if it fails.
 
 Parameters:
-* `pokemon`: passed-by-reference `void *` variable where the new Pokémon object will be stored
+* `pokemon`: passed-by-reference `void *` variable where the new Pokémon object will be stored.
 
 Possible errors:
 * `EPSS_NULL_POINTER`: `pokemon` is `NULL`.
@@ -880,7 +880,7 @@ an IV (which is 5-bit) will silently write 14 (binary 01110) instead.)
 |`EPSK_SMALL_UNKNOWN`             | not used (0)  |        24 | 3-byte unknown value in block B of the Pokémon data.|
 |`EPSK_BIG_UNKNOWN`               | not used (0)  |        32 | 4-byte unknown value in block C of the Pokémon data.|
 
-In order to make the code clearer and easier to write, some constants are defined to represent the differnet values
+In order to make the code clearer and easier to write, some constants are defined to represent the different values
 of `index` for a few of those kinds.
 
 For the `EPSK_OT_ID` kind, two constants are defined, `EPSN_VISIBLE_ID` and `EPSN_SECRET_ID`. These two constants
