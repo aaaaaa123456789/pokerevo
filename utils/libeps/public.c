@@ -1,8 +1,8 @@
 #include "proto.h"
 
 interface int epsf_read_save_from_file (const char * filename, void ** save) {
+  if (save) *save = NULL;
   if (!(filename && save)) return EPSS_NULL_POINTER;
-  *save = NULL;
   return read_save_from_file(filename, (SaveFile **) save);
 }
 
@@ -147,8 +147,8 @@ interface int epsf_destroy_pokemon (void * pokemon) {
 }
 
 interface int epsf_read_pokemon_from_file (const char * filename, void ** pokemon) {
+  if (pokemon) *pokemon = NULL;
   if (!(filename && pokemon)) return EPSS_NULL_POINTER;
-  *pokemon = NULL;
   return read_pokemon_from_file(filename, (Pokemon **) pokemon);
 }
 
@@ -165,6 +165,7 @@ interface int epsf_write_pokemon_to_file (void * pokemon, const char * filename)
 }
 
 interface int epsf_read_pokemon_from_save (void * save, int box, int position, void ** pokemon) {
+  if (pokemon) *pokemon = NULL;
   if (!(save && pokemon)) return EPSS_NULL_POINTER;
   if ((box < 0) || (box > 18) || (position < 1) || (position > 30) || (!box && (position > 6))) return EPSS_INDEX_OUT_OF_RANGE;
   char data[0x88];
@@ -205,7 +206,7 @@ interface int epsf_get_pokemon_name (void * pokemon, int which, char * name) {
 interface int epsf_set_pokemon_name (void * pokemon, int which, const char * name) {
   if (!(pokemon && name)) return EPSS_NULL_POINTER;
   if (which & ~1) return EPSS_INVALID_ARGUMENT;
-  char data[22];
+  char data[22] = {0};
   int rv = convert_text_to_buffer(name, which ? 7 : 10, data);
   if (rv) return rv;
   memcpy(((Pokemon *) pokemon) -> data + (which ? 0x60 : 0x40), data, which ? 16 : 22);
