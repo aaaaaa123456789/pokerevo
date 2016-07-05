@@ -5,6 +5,10 @@ the data of the Pokémon in storage.
 
 For the documentation on the library's interface and usage, read [the docs.md file](docs.md).
 
+Credit for figuring out and making public the decryption routines goes to TuxSH; info available [here][pbrcrypto].
+
+[pbrcrypto]: https://projectpokemon.org/forums/showthread.php?47625-Pok%E9mon-Battle-Revolution-save-research-thread
+
 ***
 
 ### Compiling from source
