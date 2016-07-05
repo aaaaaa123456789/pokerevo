@@ -661,6 +661,7 @@ Possible errors:
 * `EPSS_NULL_POINTER`: `save` is `NULL`.
 * `EPSS_INDEX_OUT_OF_RANGE`: `box` or `position` are not in the required range.
 * `EPSS_NOT_IMPLEMENTED`: an attempt was made to erase from the party, which is not currently supported.
+* `EPSS_NO_SLOT_SELECTED`: the save object doesn't have any save slot selected.
 
 ***
 
