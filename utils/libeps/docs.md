@@ -850,7 +850,7 @@ an IV (which is 5-bit) will silently write 14 (binary 01110) instead.)
 |`EPSK_ABILITY`                   | not used (0)  |         8 | |
 |`EPSK_BOX_MARKS`                 | not used (0)  |         8 | |
 |`EPSK_COUNTRY_OF_ORIGIN`         | not used (0)  |         8 | |
-|`EPSK_EFFORT_VALUE`              | 0 - 5         |         8 | The index indicates the stat. Note that the overall cap of 510 is not enforced.|
+|`EPSK_EFFORT_VALUE`              | 0 - 5         |         8 | The index indicates the stat. Note that the overall cap of 510 is enforced upon entering battle.|
 |`EPSK_CONTEST_STAT`              | 0 - 5         |         8 | The index indicates the stat.|
 |`EPSK_RIBBON`                    | 0 - 63        |         1 | Bitflag indicating the presence of a certain ribbon; the index indicates which one.|
 |`EPSK_MOVE`                      | 1 - 4         |        16 | The index indicates which moveslot. Set to 0 to leave the moveslot empty.|
