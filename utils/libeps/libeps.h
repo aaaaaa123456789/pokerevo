@@ -4,9 +4,9 @@
 
 #ifdef _WIN32
   #ifdef ___EXPORT_INTERFACE
-    #define interface __declspec(dllexport)
+    #define interface __stdcall __declspec(dllexport)
   #else
-    #define interface __declspec(dllimport)
+    #define interface __stdcall __declspec(dllimport)
   #endif
 #elif defined(__GNUC__)
   #define interface __attribute__ ((visibility("default")))
