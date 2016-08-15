@@ -905,7 +905,7 @@ the following ones:
 
 * [Generalities](#generalities)
 * [Python binding](#python-binding)
-* [C# binding](#c%23-binding)
+* [C# binding](#c-binding)
 
 ***
 
