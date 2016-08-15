@@ -36,6 +36,11 @@ The Python binding is contained in `eps.py`. In order to use it, the library fil
 as the Python file. On Linux, simply place `libeps.so` in the same directory as `eps.py`; on Windows, copy the
 appropriate .dll file (`libeps32.dll` or `libeps64.dll`) to the same folder as `eps.py` and name it `libeps.dll`.
 
-**Note that using the wrong .dll file with the Python binding will not work.** The .dll must match the platform for
-which the Python executable was compiled (`libeps32.dll` for 32-bit Python or `libeps64.dll` for 64-bit Python). The
-file must also be renamed to `libeps.dll` — this is intentionally done to force users to select the correct version.
+The C# binding is contained in `eps.cs`. In order to use it, add the `eps.cs` file to the project and place the
+appropriate .dll file (`libeps32.dll` or `libeps64.dll`) in the same folder as the compiled .exe. Rename the .dll file
+as `libeps.dll`.
+
+**Note that using the wrong .dll file with the C# or Python bindings will not work.** The .dll must match the platform:
+the platform for which the Python executable was compiled for the Python binding, or the platform for which the program
+is being built for the C# binding. The file must also be renamed to `libeps.dll` — this is intentionally done to force
+users to select the correct version.
