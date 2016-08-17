@@ -24,7 +24,7 @@ int convert_text_to_buffer (const char * text, unsigned length_limit, void * res
   unsigned length;
   unsigned char table[] = CHARACTER_TABLE;
   for (buf = result, length = 0; *text; text ++, buf += 2, length ++) {
-    if (length > length_limit) return EPSS_STRING_TOO_LONG;
+    if (length >= length_limit) return EPSS_STRING_TOO_LONG;
     if ((*text < 0x20) || (*text > 0x7e)) return EPSS_INVALID_CHARACTERS;
     converted = table[*text - 0x20];
     if (converted == 0xff) return EPSS_INVALID_CHARACTERS;
