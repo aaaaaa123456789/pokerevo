@@ -7,7 +7,7 @@ interact with it.
 * [Function reference](#function-reference)
 * [Error codes](#error-codes)
 * [Pokemon values](#pokemon-values)
-* [Notes about the bindings](#notes-about-the-bindings)
+* [Notes about the Python binding](#notes-about-the-python-binding)
 
 ***
 
@@ -34,7 +34,7 @@ they are represented by pointers. Nevertheless, the functions behave as if they 
 for those objects; even though they aren't "real" objects, they are treated as such.) All functions either create one of
 these objects (behaving in a similar way to constructors) or operate on them (behaving like methods). However, note that,
 since there is no garbage collection, all objects must be destroyed explicitly by calling the corresponding function. This
-is still true even if the bindings for the library is used, as the objects in question are not real objects.
+is still true even if the Python binding for the library is used, as the objects in question are not Python objects.
 
 ***
 
@@ -865,7 +865,8 @@ an IV (which is 5-bit) will silently write 14 (binary 01110) instead.)
 |`EPSK_EGG_LOCATION_PLATINUM`     | not used (0)  |        16 | |
 |`EPSK_MET_LOCATION_PLATINUM`     | not used (0)  |        16 | |
 |`EPSK_HOMETOWN`                  | not used (0)  |        16 | |
-|`EPSK_CONTEST_DATA`              | not used (0)  |        32 | The layout and format of this value is unknown.|
+|`EPSK_CONTEST_DATA`              | not used (0)  |        32 | **Deprecated.** Use `EPSK_CONTEST_RIBBON` instead.|
+|`EPSK_CONTEST_RIBBON`            | 0 - 31        |         1 | Bitflag indicating the presence of a certain contest ribbon; the index indicates which one.|
 |`EPSK_EGG_RECEIVED_DATE`         | not used (0)  |        24 | The layout and format of this value is unknown.|
 |`EPSK_MET_DATE`                  | not used (0)  |        24 | The layout and format of this value is unknown.|
 |`EPSK_EGG_LOCATION_DIAMOND_PEARL`| not used (0)  |        16 | |
@@ -877,9 +878,13 @@ an IV (which is 5-bit) will silently write 14 (binary 01110) instead.)
 |`EPSK_ENCOUNTER_TYPE`            | not used (0)  |         8 | |
 |`EPSK_POKE_BALL_HG_SS`           | not used (0)  |         8 | |
 |`EPSK_PERFORMANCE`               | not used (0)  |         8 | Pokéathlon performance data.|
+|`EPSK_SHINY_LEAF`                | 1 - 5         |         1 | Bitflag indicating the shiny leaves a Pokémon has. The index indicates which leaf: leftmost is 1.|
+|`EPSK_LEAF_CROWN`                | not used (0)  |         1 | Indicates whether the Pokémon has a leaf crown or not.|
+|`EPSK_LEAF_UNUSED`               | not used (0)  |         2 | Unused part of the shiny leaves value.|
 |`EPSK_HEADER_UNKNOWN`            | not used (0)  |        16 | 2-byte unknown value in the Pokémon data header.|
-|`EPSK_SMALL_UNKNOWN`             | not used (0)  |        24 | 3-byte unknown value in block B of the Pokémon data.|
+|`EPSK_SMALL_UNKNOWN`             | not used (0)  |        24 | **Deprecated.** 3-byte unknown value in block B of the Pokémon data.|
 |`EPSK_BIG_UNKNOWN`               | not used (0)  |        32 | 4-byte unknown value in block C of the Pokémon data.|
+|`EPSK_WORD_UNKNOWN`              | not used (0)  |        16 | 2-byte unknown or unused value in block B of the Pokémon data.|
 
 In order to make the code clearer and easier to write, some constants are defined to represent the different values
 of `index` for a few of those kinds.
@@ -901,28 +906,12 @@ the following ones:
 
 ***
 
-## Notes about the bindings
+## Notes about the Python binding
 
-* [Generalities](#generalities)
-* [Python binding](#python-binding)
-* [C# binding](#c-binding)
-
-***
-
-### Generalities
-
-The bindings attempt to expose the above functions and constants in other languages. They intentionally expose an
-interface nearly identical to the C interface, that therefore follows the above documentation; no new functionality is
-defined and/or abstracted by the bindings. Therefore, they should be wrapped by proper interfaces that follow the
-conventions and standards of the languages they are written.
-
-As the bindings behave identically to the C interface, explicit object destruction is mandatory. The garbage collection
-methods of the bindings' languages will not work on these objects, and therefore they will be never collected; the
-corresponding destructor functions must be called when the program is done working with those objects.
-
-***
-
-### Python binding
+The Python binding makes all of the above functions and constants available on Python. It does not define any Python
+classes or any new functions or methods. It is intentionally very similar to the C interface, and thus should be
+wrapped by a proper Python interface by the application. Since it behaves identically to the C interface, destructing
+objects explicitly is mandatory; they are not garbage collected.
 
 The exposed functions take the same arguments as the corresponding C functions. The `ctypes` types `c_void_p` and
 `c_char_p` take the place of C's `void *` and `char *` types. Note that several functions take pass-by-reference
@@ -961,52 +950,4 @@ for n in range(0, 30):
     epsf_destroy_pokemon(pokemon)
 epsf_write_save_to_file(save, b'PbrSaveData')
 epsf_destroy_save(save)
-```
-
-***
-
-### C# binding
-
-The exposed functions take the same arguments as the corresponding C functions; `IntPtr` (`System.IntPtr`) replaces
-`void *` and `string` replaces `const char *`. The functions that return values via pass-by-reference arguments in the
-C interface do so via `out` parameters in C#. The function that takes a `char *` argument (which is mutable, as opposed
-to the `const char *` arguments) will take a `StringBuilder` in C#; this object must have been instantiated to a new
-`StringBuilder` of an appropriate size prior to the call.
-
-All exposed functions and constants are exposed via a class called `eps`, which is declared as static. The class is
-defined in the global namespace; as only one class is defined, no namespaces are created by the binding.
-
-The following sample program should illustrate the various quirks of using the C# binding:
-
-```c#
-﻿using System;
-using System.Text;
-
-public class Program {
-  static void Main (string[] args) {
-    IntPtr save, pokemon;
-    eps.epsf_read_save_from_file("basesave", out save);
-    eps.epsf_select_save_slot(save, 1);
-    int n;
-    StringBuilder name;
-    uint species;
-    for (n = 1; n <= 30; n ++) {
-      eps.epsf_read_pokemon_from_save(save, 1, n, out pokemon);
-      name = new StringBuilder(12);
-      eps.epsf_get_pokemon_name(pokemon, 0, name);
-      eps.epsf_get_pokemon_value(pokemon, eps.EPSK_SPECIES_NUMBER, 0, out species);
-      // print its current species number and nickname
-      Console.WriteLine("#{0:000} {1}", species, name.ToString());
-      // change its nickname to Test #xxx, and make it level 1
-      eps.epsf_set_pokemon_name(pokemon, 0, string.Format("Test #{0:000}", species));
-      eps.epsf_set_pokemon_value(pokemon, eps.EPSK_EXPERIENCE_POINTS, 0, 0);
-      // ...and make it a Chatot
-      eps.epsf_set_pokemon_value(pokemon, eps.EPSK_SPECIES_NUMBER, 0, 441); // 441 is Chatot's ID
-      eps.epsf_write_pokemon_to_save(save, 1, n, pokemon);
-      eps.epsf_destroy_pokemon(pokemon);
-    }
-    eps.epsf_write_save_to_file(save, "PbrSaveData");
-    eps.epsf_destroy_save(save);
-  }
-}
 ```

@@ -70,6 +70,11 @@ public static class eps {
   public const int EPSK_HEADER_UNKNOWN             = 42;
   public const int EPSK_SMALL_UNKNOWN              = 43;
   public const int EPSK_BIG_UNKNOWN                = 44;
+  public const int EPSK_CONTEST_RIBBON             = 45;
+  public const int EPSK_WORD_UNKNOWN               = 46;
+  public const int EPSK_SHINY_LEAF                 = 47;
+  public const int EPSK_LEAF_CROWN                 = 48;
+  public const int EPSK_LEAF_UNUSED                = 49;
 
   // EVs; IVs
   public const int EPSN_HP                         = 0;

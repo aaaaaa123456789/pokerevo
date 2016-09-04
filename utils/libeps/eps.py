@@ -74,6 +74,11 @@ EPSK_PERFORMANCE                = 41
 EPSK_HEADER_UNKNOWN             = 42
 EPSK_SMALL_UNKNOWN              = 43
 EPSK_BIG_UNKNOWN                = 44
+EPSK_CONTEST_RIBBON             = 45
+EPSK_WORD_UNKNOWN               = 46
+EPSK_SHINY_LEAF                 = 47
+EPSK_LEAF_CROWN                 = 48
+EPSK_LEAF_UNUSED                = 49
 
 EPSN_HP                         = 0
 EPSN_ATTACK                     = 1

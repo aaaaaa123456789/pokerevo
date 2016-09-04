@@ -113,7 +113,7 @@ int access_pokemon_data (Pokemon * pokemon, int kind, int index, int write, unsi
       return access_pokemon_data_by_position(pokemon, 30 + index, 1, 0, 8, write, value);
     case EPSK_RIBBON:
       if ((index < 0) || (index > 63)) return EPSS_INDEX_OUT_OF_RANGE;
-      return access_pokemon_data_by_position(pokemon, (index >> 4)[(unsigned []) {36, 38, 60, 62}], 4, index & 15, 1, write, value);
+      return access_pokemon_data_by_position(pokemon, (index >> 4)[(unsigned []) {36, 38, 60, 62}], 2, index & 15, 1, write, value);
     case EPSK_MOVE:
       if ((index < 1) || (index > 4)) return EPSS_INDEX_OUT_OF_RANGE;
       return access_pokemon_data_by_position(pokemon, 38 + (index << 1), 2, 0, 16, write, value);
@@ -199,6 +199,21 @@ int access_pokemon_data (Pokemon * pokemon, int kind, int index, int write, unsi
     case EPSK_BIG_UNKNOWN:
       if (index) return EPSS_INDEX_OUT_OF_RANGE;
       return access_pokemon_data_by_position(pokemon, 100, 4, 0, 32, write, value);
+    case EPSK_CONTEST_RIBBON:
+      if ((index < 0) || (index > 31)) return EPSS_INDEX_OUT_OF_RANGE;
+      return access_pokemon_data_by_position(pokemon, (index >> 4)[(unsigned []) {96, 98}], 2, index & 15, 1, write, value);
+    case EPSK_WORD_UNKNOWN:
+      if (index) return EPSS_INDEX_OUT_OF_RANGE;
+      return access_pokemon_data_by_position(pokemon, 66, 2, 0, 16, write, value);
+    case EPSK_SHINY_LEAF:
+      if ((index < 1) || (index > 5)) return EPSS_INDEX_OUT_OF_RANGE;
+      return access_pokemon_data_by_position(pokemon, 65, 1, 8 - index, 1, write, value);
+    case EPSK_LEAF_CROWN:
+      if (index) return EPSS_INDEX_OUT_OF_RANGE;
+      return access_pokemon_data_by_position(pokemon, 65, 1, 2, 1, write, value);
+    case EPSK_LEAF_UNUSED:
+      if (index) return EPSS_INDEX_OUT_OF_RANGE;
+      return access_pokemon_data_by_position(pokemon, 65, 1, 0, 2, write, value);
     default:
       return EPSS_INVALID_ARGUMENT;
   }
