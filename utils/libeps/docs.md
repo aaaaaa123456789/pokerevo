@@ -905,7 +905,7 @@ an IV (which is 5-bit) will silently write 14 (binary 01110) instead.)
 |`EPSK_IS_EGG`                    | not used (0)  |         1 | |
 |`EPSK_IS_NICKNAMED`              | not used (0)  |         1 | Doesn't seem to have any effect; nicknames seem to work even without setting this flag.|
 |`EPSK_FATEFUL_ENCOUNTER`         | not used (0)  |         1 | |
-|`EPSK_GENDER`                    | not used (0)  |         2 | 0 = male, 1 = female, 2 = genderless. 3 is probably genderless as well.|
+|`EPSK_GENDER`                    | not used (0)  |         2 | 0 = male, 1 = female, 2 (or 3) = genderless. Note that the game recalculates this before battling.|
 |`EPSK_FORM`                      | not used (0)  |         5 | For Pokémon that only have one form, this is set to 0.|
 |`EPSK_EGG_LOCATION_PLATINUM`     | not used (0)  |        16 | |
 |`EPSK_MET_LOCATION_PLATINUM`     | not used (0)  |        16 | |
