@@ -164,6 +164,21 @@ interface int epsf_write_pokemon_to_file (void * pokemon, const char * filename)
   return EPSS_OK;
 }
 
+interface int epsf_read_pokemon_from_buffer (const void * buffer, void ** pokemon) {
+  if (pokemon) *pokemon = NULL;
+  if (!(buffer && pokemon)) return EPSS_NULL_POINTER;
+  *pokemon = malloc(0x88);
+  if (!*pokemon) return EPSS_OUT_OF_MEMORY;
+  convert_data_to_pokemon(buffer, *pokemon);
+  return EPSS_OK;
+}
+
+interface int epsf_write_pokemon_to_buffer (void * pokemon, void * buffer) {
+  if (!(buffer && pokemon)) return EPSS_NULL_POINTER;
+  convert_pokemon_to_data(pokemon, buffer);
+  return EPSS_OK;
+}
+
 interface int epsf_read_pokemon_from_save (void * save, int box, int position, void ** pokemon) {
   if (pokemon) *pokemon = NULL;
   if (!(save && pokemon)) return EPSS_NULL_POINTER;

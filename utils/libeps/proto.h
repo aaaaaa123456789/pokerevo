@@ -34,7 +34,7 @@ int open_file_check_size(const char *, unsigned, FILE **);
 int write_save_to_file(SaveFile *, const char *);
 
 // pokemon.c
-void convert_data_to_pokemon(unsigned char *, Pokemon *);
+void convert_data_to_pokemon(const unsigned char *, Pokemon *);
 void convert_pokemon_to_data(Pokemon *, unsigned char *);
 unsigned short calculate_pokemon_checksum(Pokemon *);
 int access_pokemon_data_by_position(Pokemon *, unsigned, unsigned, unsigned, unsigned, int, unsigned *);

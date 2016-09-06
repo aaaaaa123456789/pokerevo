@@ -65,6 +65,8 @@ behavior. The errors that functions can return are also listed here.
 * [epsf_destroy_pokemon](#epsf_destroy_pokemon)
 * [epsf_read_pokemon_from_file](#epsf_read_pokemon_from_file)
 * [epsf_write_pokemon_to_file](#epsf_write_pokemon_to_file)
+* [epsf_read_pokemon_from_buffer](#epsf_read_pokemon_from_buffer)
+* [epsf_write_pokemon_to_buffer](#epsf_write_pokemon_to_buffer)
 * [epsf_read_pokemon_from_save](#epsf_read_pokemon_from_save)
 * [epsf_write_pokemon_to_save](#epsf_write_pokemon_to_save)
 * [epsf_erase_pokemon_from_save](#epsf_erase_pokemon_from_save)
@@ -587,6 +589,49 @@ Possible errors:
 
 ***
 
+### epsf_read_pokemon_from_buffer
+
+Prototype:
+
+```C
+interface int epsf_read_pokemon_from_buffer(const void * buffer, void ** pokemon);
+```
+
+Creates a new Pokémon object by reading it from a buffer in memory, and stores it in a passed-by-reference argument.
+
+Returns 0 (`EPSS_OK`) on success, or an error code if it fails.
+
+Parameters:
+* `buffer`: pointer to the memory buffer from which the data will be read. Must contain at least 136 bytes of data.
+* `pokemon`: passed-by-reference `void *` variable where the new Pokémon object will be stored.
+
+Possible errors:
+* `EPSS_NULL_POINTER`: one of the arguments is `NULL`.
+* `EPSS_OUT_OF_MEMORY`: there isn't enough memory available to create an object.
+
+***
+
+### epsf_write_pokemon_to_buffer
+
+Prototype:
+
+```C
+interface int epsf_write_pokemon_to_buffer(void * pokemon, void * buffer);
+```
+
+Writes a Pokémon object to a memory buffer. The buffer must have at least 136 bytes of available space.
+
+Returns 0 (`EPSS_OK`) on success, or an error code if it fails.
+
+Parameters:
+* `pokemon`: the Pokémon object that will be written.
+* `buffer`: pointer to the memory buffer where the object will be written.
+
+Possible errors:
+* `EPSS_NULL_POINTER`: one of the arguments is `NULL`.
+
+***
+
 ### epsf_read_pokemon_from_save
 
 Prototype:
@@ -976,14 +1021,15 @@ The exposed functions take the same arguments as the corresponding C functions; 
 `void *` and `string` replaces `const char *`. The functions that return values via pass-by-reference arguments in the
 C interface do so via `out` parameters in C#. The function that takes a `char *` argument (which is mutable, as opposed
 to the `const char *` arguments) will take a `StringBuilder` in C#; this object must have been instantiated to a new
-`StringBuilder` of an appropriate size prior to the call.
+`StringBuilder` of an appropriate size prior to the call. For the functions that take a memory buffer as an argument
+(namely `epsf_read_pokemon_from_buffer` and `epsf_write_pokemon_to_buffer`), a `byte[]` value is used.
 
 All exposed functions and constants are exposed via a class called `eps`, which is declared as static. The class is
 defined in the global namespace; as only one class is defined, no namespaces are created by the binding.
 
 The following sample program should illustrate the various quirks of using the C# binding:
 
-```c#
+```C#
 using System;
 using System.Text;
 

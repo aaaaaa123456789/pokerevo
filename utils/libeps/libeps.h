@@ -137,6 +137,8 @@ interface int epsf_new_pokemon(void ** pokemon);
 interface int epsf_destroy_pokemon(void * pokemon);
 interface int epsf_read_pokemon_from_file(const char * filename, void ** pokemon);
 interface int epsf_write_pokemon_to_file(void * pokemon, const char * filename);
+interface int epsf_read_pokemon_from_buffer(const void * buffer, void ** pokemon);
+interface int epsf_write_pokemon_to_buffer(void * pokemon, void * buffer);
 interface int epsf_read_pokemon_from_save(void * save, int box, int position, void ** pokemon);
 interface int epsf_write_pokemon_to_save(void * save, int box, int position, void * pokemon);
 interface int epsf_erase_pokemon_from_save(void * save, int box, int position);

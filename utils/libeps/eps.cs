@@ -159,6 +159,12 @@ public static class eps {
 
   [DllImport("libeps.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
   public static extern int epsf_write_pokemon_to_file(IntPtr pokemon, string filename);
+  
+  [DllImport("libeps.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+  public static extern int epsf_read_pokemon_from_buffer([In] byte[] buffer, out IntPtr pokemon);
+  
+  [DllImport("libeps.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+  public static extern int epsf_write_pokemon_to_buffer(IntPtr pokemon, [Out] byte[] buffer);
 
   [DllImport("libeps.dll", CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
   public static extern int epsf_read_pokemon_from_save(IntPtr save, int box, int position, out IntPtr pokemon);

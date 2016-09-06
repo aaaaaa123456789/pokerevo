@@ -164,6 +164,12 @@ epsf_read_pokemon_from_file.argtypes = [c_char_p, POINTER(c_void_p)]
 epsf_write_pokemon_to_file = _libeps.epsf_write_pokemon_to_file
 epsf_write_pokemon_to_file.argtypes = [c_void_p, c_char_p]
 
+epsf_read_pokemon_from_buffer = _libeps.epsf_read_pokemon_from_buffer
+epsf_read_pokemon_from_buffer.argtypes = [c_void_p, POINTER(c_void_p)]
+
+epsf_write_pokemon_to_buffer = _libeps.epsf_write_pokemon_to_buffer
+epsf_write_pokemon_to_buffer.argtypes = [c_void_p, c_void_p]
+
 epsf_read_pokemon_from_save = _libeps.epsf_read_pokemon_from_save
 epsf_read_pokemon_from_save.argtypes = [c_void_p, c_int, c_int, POINTER(c_void_p)]
 

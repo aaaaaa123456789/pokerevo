@@ -1,6 +1,6 @@
 #include "proto.h"
 
-void convert_data_to_pokemon (unsigned char * data, Pokemon * pokemon) {
+void convert_data_to_pokemon (const unsigned char * data, Pokemon * pokemon) {
   pokemon -> personality_value = read_number(data, 4);
   pokemon -> header_unknown = read_number(data + 4, 2);
   pokemon -> checksum = read_number(data + 6, 2);
