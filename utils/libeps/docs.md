@@ -964,7 +964,7 @@ the following ones:
 The bindings attempt to expose the above functions and constants in other languages. They intentionally expose an
 interface nearly identical to the C interface, that therefore follows the above documentation; no new functionality is
 defined and/or abstracted by the bindings. Therefore, they should be wrapped by proper interfaces that follow the
-conventions and standards of the languages they are written.
+conventions and standards of the languages they are written in.
 
 As the bindings behave identically to the C interface, explicit object destruction is mandatory. The garbage collection
 methods of the bindings' languages will not work on these objects, and therefore they will be never collected; the
