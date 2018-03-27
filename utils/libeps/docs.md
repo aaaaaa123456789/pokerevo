@@ -594,7 +594,7 @@ Possible errors:
 Prototype:
 
 ```C
-interface int epsf_read_pokemon_from_buffer(const void * buffer, void ** pokemon);
+int epsf_read_pokemon_from_buffer(const void * buffer, void ** pokemon);
 ```
 
 Creates a new Pokémon object by reading it from a buffer in memory, and stores it in a passed-by-reference argument.
@@ -616,7 +616,7 @@ Possible errors:
 Prototype:
 
 ```C
-interface int epsf_write_pokemon_to_buffer(void * pokemon, void * buffer);
+int epsf_write_pokemon_to_buffer(void * pokemon, void * buffer);
 ```
 
 Writes a Pokémon object to a memory buffer. The buffer must have at least 136 bytes of available space.
